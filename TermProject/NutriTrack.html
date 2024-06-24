@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식품 영양 성분 조회</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header, nav, footer {
+            background-color: #2a9d8f;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        header {
+            margin-bottom: 20px;
+        }
+        nav {
+            margin-bottom: 40px;
+        }
+        main {
+            padding: 20px;
+            padding-bottom: 60px;
+        }
+        label, input, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        /* input type 사용 */
+        input[type="text"], input[type="checkbox"], input[type="hidden"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+        button[type="button"] {
+            padding: 10px;
+            margin: 15px;
+            background-color: #264653;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left;
+        }
+        button[type="button"]:hover {
+            background-color: #1e3a4b;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            clear: both;
+        }
+        .pagination {
+            margin-top: 10px;
+            clear: both;
+        }
+        .pagination button {
+            float: left;
+            margin-right: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #2a9d8f;
+            color: white;
+        }
+        img.recipe-img {
+            max-width: 100px;
+            height: auto;
+        }
+        input[type="text"] {
+            background-color: #e6f7f5;
+        }
+        button[type="button"] {
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        header + nav {
+            border-bottom: 2px solid #2a9d8f;
+        }
+        nav ~ main {
+            border-top: 2px solid #2a9d8f;
+        }
+        label + input {
+            margin-top: 5px;
+        }
+        input + button {
+            margin-top: 15px;
+        }
+        main > .result {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input:focus {
+            border-color: #2a9d8f;
+        }
+        button:active {
+            background-color: #1b2e35;
+        }
+        label::after {
+            content: "*";
+            color: red;
+            margin-left: 5px;
+        }
+        footer::before {
+            content: "ⓒ 2024 ";
+            color: #eee;
+        }
+        @media (max-width: 900px) {
+            button {
+                float: none;
+                width: 100%;
+                margin: 5px 0;
+            }
+            .pagination button {
+                float: none;
+                width: 48%;
+                margin: 1%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <header>
+            <h1>식품 영양 성분 및 레시피 조회</h1>
+            <input type="hidden" id="학번" name="이름" value="텀 프로젝트">
+        </header>
+        <nav>
+            <div>
+                검색 용도 <input type="checkbox" id="searchFor" name="searchFor">
+            </div>
+        </nav>
+        <main>
+            <label for="foodName">식품 또는 요리 이름:</label>
+            <input type="text" id="foodName" placeholder="예: 감자 ">
+            <button type="button" onclick="fetchNutrition()">영양 정보 확인</button>
+            <button type="button" onclick="fetchRecipe()">레시피 조회</button>
+            <button type="button" onclick="clearResults()">결과 지우기</button>
+
+            <div class="result" id="result"></div>
+
+            <div class="pagination" id="nutritionPagination" style="display: none;">
+                <button type="button" onclick="prevNutrition()">이전</button>
+                <button type="button" onclick="nextNutrition()">다음</button>
+            </div>
+
+            <div class="pagination" id="recipePagination" style="display: none;">
+                <button type="button" onclick="prevRecipe()">이전</button>
+                <button type="button" onclick="nextRecipe()">다음</button>
+            </div>
+        </main>
+        <footer>
+            식품 영양 성분 및 레시피 조회
+        </footer>
+        <script src="NutriTrack.js"></script>
+    </form>
+</body>
+</html>
